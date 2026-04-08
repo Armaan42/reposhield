@@ -165,7 +165,7 @@ Key outcomes include:
 
 - A web-based platform that integrates with GitHub repositories for automated pull request analysis.
 - An intelligent AI review system capable of generating structured feedback on code changes by understanding the broader repository architecture.
-- **Application Security Auditing** — An integrated, automated security auditing system that proactively scans pull requests to detect potential security vulnerabilities, threat vectors, and dangerous coding practices long before flawed code is merged into production.
+- Application Security Auditing — An integrated, automated security auditing system that proactively scans pull requests to detect potential security vulnerabilities, threat vectors, and dangerous coding practices long before flawed code is merged into production.
 - A repository indexing system that enables semantic search and deep contextual understanding of the entire codebase.
 - A dashboard for viewing review results, security audit reports, repository activity, and analytics.
 - Improved development workflow efficiency by significantly reducing the time and effort required for manual code reviews.
