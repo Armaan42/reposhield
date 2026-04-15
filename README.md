@@ -216,8 +216,8 @@ This creates a gap for a solution that combines semantic repository understandin
 
 ## Research Work
 
-- Lewis, P. et al. (2020). *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.*
-- Vaswani, A. et al. (2017). *Attention Is All You Need.*
+- Lewis, P. et al. (2020). *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks*
+- Vaswani, A. et al. (2017). *Attention Is All You Need*
 - Official Documentation – GitHub
 - Pinecone Vector Database Documentation
 - Google Gemini AI Documentation
