@@ -211,6 +211,7 @@ This creates a gap for a solution that combines semantic repository understandin
 
 - The system helps development teams reduce manual review workload and improve efficiency in the software development process.
 - It contributes to better software quality by enabling early detection of issues and promoting consistent coding practices.
+- Focus on automation to increase effiency and reduce manual efort
 
 ---
 
