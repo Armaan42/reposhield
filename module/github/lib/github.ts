@@ -161,3 +161,81 @@ export const deleteWebhook = async (owner:string, repo:string)=>{
         return false;
     }
 }
+
+
+
+export async function getRepoFileContents(
+    token: string,
+    owner: string,
+    repo: string,
+    path: string = ""
+):Promise<{path:string, content:string}[]> {
+    const octokit = new Octokit({auth:token});
+
+    let data;
+    try {
+        const response = await octokit.rest.repos.getContent({
+            owner,
+            repo,
+            path
+        });
+        data = response.data;
+    } catch (error: any) {
+        if (error.status === 404) {
+            return [];
+        }
+        throw error;
+    }
+
+    if(!Array.isArray(data)){
+        //it's a file
+        if(data.type === "file" && data.content) {
+            return [{
+                path: data.path,
+                content: Buffer.from(data.content, "base64").toString("utf-8"),
+            }];
+        }
+        return [];
+    }
+
+    let files: {path:string, content:string}[] = [];
+
+    for(const item of data){
+        if(item.type === "file"){
+            let fileData;
+            try {
+                const response = await octokit.rest.repos.getContent({
+                    owner,
+                    repo,
+                    path:item.path
+                });
+                fileData = response.data;
+            } catch (error: any) {
+                // Skip if the file was somehow missing
+                if (error.status === 404) {
+                    continue;
+                }
+                throw error;
+            }
+
+            if (!Array.isArray(fileData) && fileData.type === "file" && fileData.content) {
+                // Filter out non-code files if needed (images, etc.)
+                // For now, let's include everything that looks like text
+                if (!item.path.match(/\.(png|jpg|jpeg|gif|svg|ico|pdf|zip|tar|gz)$/i)) {
+                    files.push({
+                        path: item.path,
+                        content: Buffer.from(fileData.content, "base64").toString("utf-8"),
+                    });
+                }
+            }
+        }
+
+        else if(item.type === "dir"){
+            const subFiles = await getRepoFileContents(token, owner, repo, item.path)
+
+            files = files.concat(subFiles)
+        }
+    }
+
+    return files;
+}

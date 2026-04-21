@@ -1,15 +1,22 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { requireAuth } from "@/module/auth/utils/auth-utils";
 import { SidebarProvider, SidebarTrigger, Sidebar, SidebarInset } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import AppSidebar from "@/components/app-sidebar";
 
+async function AuthGuard() {
+    await requireAuth();
+    return null;
+}
+
 const DashboardLayout = async (
     { children }: { children: React.ReactNode }
 ) => {
-    await requireAuth();
     return (
         <SidebarProvider>
+            <Suspense fallback={null}>
+                <AuthGuard />
+            </Suspense>
             <AppSidebar />
             <SidebarInset>
                <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">

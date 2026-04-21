@@ -4,6 +4,7 @@ import prisma from "@/lib/db";
 import { auth } from "@/lib/auth"
 import { headers } from "next/headers";
 import { createWebhook, getRepository } from "@/module/github/lib/github";
+import { inngest } from "@/inngest/client";
 
 export const fetchRepositories = async (page:number=1, perPage:number = 10) => {
     const session = await auth.api.getSession({
@@ -57,7 +58,21 @@ export const connectRepository = async(owner:string, repo:string, githubId:numbe
     }
     // TODO: INCREMENT REPOSITORY COUNT FOR USAGE TRACKING
 
-    //TODO: TRIGGER REPOSITORY INDEXING FOR RAG (FIRE AND FORGET)
+    // TRIGGER REPOSITORY INDEXING FOR RAG (FIRE AND FORGET)
+
+    try{
+        await inngest.send({
+            name:"repository.connected",
+            data:{
+                owner,
+                repo,
+                userId:session.user.id
+            }
+        })
+    } catch (error){
+        console.log("Failed to trigger repository indexing:", error);
+
+    }
 
     return webhook;
 }
