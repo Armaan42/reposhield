@@ -33,12 +33,33 @@ const MainPage = () => {
             <div className="grid gap-4 md:grid-cols-4">
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Total Repositories</CardTitle>
+                        <CardTitle className="text-sm font-medium">Repositories</CardTitle>
                         <GitBranch className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">{isLoading ? "..." : stats?.totalRepos || 0}</div>
-                        <p className="text-xs text-muted-foreground">Connected repositories</p>
+                        {isLoading ? (
+                            <div className="text-2xl font-bold">...</div>
+                        ) : (
+                            <>
+                                <div className="flex items-baseline gap-1.5">
+                                    <span className="text-2xl font-bold">{stats?.connectedRepos ?? 0}</span>
+                                    <span className="text-sm text-muted-foreground">/ {stats?.githubTotalRepos ?? 0} connected</span>
+                                </div>
+                                <div className="mt-2 h-1.5 w-full rounded-full bg-muted overflow-hidden">
+                                    <div
+                                        className="h-full rounded-full bg-primary transition-all"
+                                        style={{
+                                            width: stats?.githubTotalRepos
+                                                ? `${Math.min(100, ((stats.connectedRepos ?? 0) / stats.githubTotalRepos) * 100)}%`
+                                                : "0%"
+                                        }}
+                                    />
+                                </div>
+                                <p className="mt-1 text-xs text-muted-foreground">
+                                    {stats?.githubTotalRepos ?? 0} total on GitHub
+                                </p>
+                            </>
+                        )}
                     </CardContent>
                 </Card>
                 <Card>

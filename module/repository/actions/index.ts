@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth"
 import { headers } from "next/headers";
 import { createWebhook, getRepository } from "@/module/github/lib/github";
 import { inngest } from "@/inngest/client";
+import { canConnectRepository,decrementRepositoryCount, incrementRepositoryCount } from "@/module/payment/lib/subscription";
 
 export const fetchRepositories = async (page:number=1, perPage:number = 10) => {
     const session = await auth.api.getSession({
@@ -41,6 +42,11 @@ export const connectRepository = async(owner:string, repo:string, githubId:numbe
     }
 
     // TODO: CHECK IF USER CAN CONNECT MORE REPO
+    const canConnect = await canConnectRepository(session.user.id);
+
+    if(!canConnect){
+        throw new Error ("Repository limited reached. Please upgrade to PRO for unlimited repostories");
+    }
 
     const webhook = await createWebhook(owner, repo)
 
@@ -55,8 +61,9 @@ export const connectRepository = async(owner:string, repo:string, githubId:numbe
                 userId:session.user.id
             }
         })
-    }
-    // TODO: INCREMENT REPOSITORY COUNT FOR USAGE TRACKING
+    
+    // INCREMENT REPOSITORY COUNT FOR USAGE TRACKING
+    await incrementRepositoryCount(session.user.id);
 
     // TRIGGER REPOSITORY INDEXING FOR RAG (FIRE AND FORGET)
 
@@ -73,6 +80,6 @@ export const connectRepository = async(owner:string, repo:string, githubId:numbe
         console.log("Failed to trigger repository indexing:", error);
 
     }
-
+    }
     return webhook;
 }

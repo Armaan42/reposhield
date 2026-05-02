@@ -69,40 +69,49 @@ export async function getDashboardStats(){
 
         const {data:user} = await octokit.rest.users.getAuthenticated()
 
-        // TODO: FETCH TOTAL CONNECTED REPO FROM DB;
-        const totalRepos = 60;
+        // Total repos on GitHub (public + private)
+        const githubTotalRepos = (user.public_repos || 0) + (user.total_private_repos || 0);
 
-        // 
+        // Repos connected to RepoShield in DB
+        const connectedRepos = await prisma.repository.count({
+            where: { userId: session.user.id },
+        });
+
         const calendar = await fetchUserContributions(token, user.login);
         const totalCommits = calendar?.totalContributions || 0
 
-        // count PRs from database or github
-        const {data:prs} =await octokit.rest.search.issuesAndPullRequests({
+        // count PRs from GitHub
+        const {data:prs} = await octokit.rest.search.issuesAndPullRequests({
             q:`author:${user.login} type:pr`,
             per_page:1
         })
 
         const totalPRs = prs.total_count
 
-        //TODO: Count AI Reviews from Database
-
-        const totalReviews = 44
+        // Fetch real AI review count from DB
+        const totalReviews = await prisma.review.count({
+            where: {
+                repository: { userId: session.user.id },
+            },
+        });
 
         return {
             totalCommits,
             totalPRs,
             totalReviews,
-            totalRepos
+            githubTotalRepos,
+            connectedRepos
         }
         
 
     } catch (error) {
         console.error("Error fetching dashboard stats:", error);
             return {
-                totalCommits:0,
-                totalPRs:0,
-                totalReviews:0,
-                totalRepos:0,  
+                totalCommits: 0,
+                totalPRs: 0,
+                totalReviews: 0,
+                githubTotalRepos: 0,
+                connectedRepos: 0,
             };
     }
 }

@@ -1,6 +1,6 @@
 "use client"
 
-import { BookOpen, Settings, Moon, Sun, LogOut } from "lucide-react"
+import { BookOpen, Settings, Moon, Sun, LogOut, BarChart2 } from "lucide-react"
 
 const Github = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -76,6 +76,11 @@ export const AppSidebar = () => {
             title: "Subscription",
             url: "/dashboard/subscription",
             icon: BookOpen,
+        },
+        {
+            title: "Insights",
+            url: "/dashboard/insights",
+            icon: BarChart2,
         },
         {
             title: "Settings",
