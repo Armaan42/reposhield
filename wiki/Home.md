@@ -22,3 +22,9 @@ Use the sidebar on the right to navigate through the documentation:
 6. **[Contributing](Contributing)** - How to help build and improve Reposhield.
 7. **[FAQ & Troubleshooting](FAQ)** - Common errors and how to fix them.
 8. **[Team & Credits](Team)** - Meet the people behind the project.
+9. **[Technical Execution Flow](Technical_Documentation)** - Deep dive into how functions interact.
+10. **[Security Policy](Security-Policy)** - How we protect your code and data.
+11. **[Environment Variables](Environment-Variables)** - Full reference for your `.env` file.
+12. **[Database Schema](Database-Schema)** - Detailed breakdown of Prisma models and relations.
+13. **[Deployment Guide](Deployment-Guide)** - Moving Reposhield to production (Vercel).
+14. **[Subscription Logic](Subscription-Logic)** - How Free/Pro quotas are enforced.
