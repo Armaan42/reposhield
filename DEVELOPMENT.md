@@ -1,3 +1,11 @@
+<div align="center">
+  <a href="./README.md">📖 README</a>
+  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+  <strong>💻 Local Development</strong>
+</div>
+
+---
+
 # Local Development
 
 To run this project locally, you will need a few services running simultaneously because it relies on background jobs (Inngest) and GitHub webhooks.

@@ -1,3 +1,11 @@
+<div align="center">
+  <strong>📖 README</strong>
+  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+  <a href="./DEVELOPMENT.md">💻 Local Development</a>
+</div>
+
+---
+
 ## Project Title
 
 **RepoShield: Developed an AI-Powered Automated Code Review Platform with Integrated Application Security Auditing**
