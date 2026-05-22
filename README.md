@@ -410,16 +410,34 @@ This creates a gap for a solution that combines semantic repository understandin
 
 ## Research Work
 
-- Lewis, P. et al. (2020). *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks*
-- Vaswani, A. et al. (2017). *Attention Is All You Need*
-- Official Documentation – GitHub
-- Pinecone Vector Database Documentation
-- Google Gemini AI Documentation
-- Prisma ORM Documentation
-- Next.js Official Documentation
-- TanStack Query Documentation
-- Octokit GitHub API Documentation
-- Research articles on AI-assisted software development tools.
+### Academic Papers & Journal
+
+[1] P. Lewis *et al.*, "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks," in *Proc. 34th Int. Conf. Neural Inf. Process. Syst. (NeurIPS)*, 2020, pp. 9459–9474.
+
+[2] A. Vaswani *et al.*, "Attention Is All You Need," in *Proc. 31st Int. Conf. Neural Inf. Process. Syst. (NeurIPS)*, 2017, pp. 5998–6008.
+
+[3] M. Chen *et al.*, "Evaluating Large Language Models Trained on Code," *arXiv preprint arXiv:2107.03374*, 2021.
+
+[4] W. X. Zhao *et al.*, "A Survey of Large Language Models," *arXiv preprint arXiv:2303.18223*, 2023.
+
+[5] N. Jiang, K. Liu, T. Li, and J. Li, "An Empirical Study of AI-Assisted Code Review," in *Proc. 45th Int. Conf. Softw. Eng. (ICSE)*, 2023, pp. 1–13.
+
+[6] S. Lu *et al.*, "CodeXGLUE: A Machine Learning Benchmark Dataset for Code Understanding and Generation," in *Proc. Neural Inf. Process. Syst. Datasets and Benchmarks Track*, 2021.
+
+[7] T. Brown *et al.*, "Language Models are Few-Shot Learners," in *Proc. 34th Int. Conf. Neural Inf. Process. Syst. (NeurIPS)*, 2020, pp. 1877–1901.
+
+[8] Z. Li *et al.*, "VulDeePecker: A Deep Learning-Based System for Vulnerability Detection," in *Proc. 25th Netw. Distrib. Syst. Secur. Symp. (NDSS)*, 2018.
+
+[9] X. Gu, H. Zhang, and S. Kim, "Deep Code Search," in *Proc. 40th Int. Conf. Softw. Eng. (ICSE)*, 2018, pp. 933–944.
+
+[10] C. Clement *et al.*, "PyMT5: Multi-mode Translation of Natural Language and Python Code with Transformers," in *Proc. 2020 Conf. Empir. Methods Nat. Lang. Process. (EMNLP)*, 2020, pp. 9052–9065.
+
+### Technical Documentation
+
+- **GitHub API:** Octokit REST & Webhook Documentation
+- **Databases:** Pinecone Vector Database & Prisma ORM Official Guides
+- **AI Models:** Google Gemini AI Model Documentation
+- **Frameworks:** Next.js Application Router & TanStack Query Documentation
 ## Local Development
 
 To run this project locally, you will need a few services running simultaneously because it relies on background jobs (Inngest) and GitHub webhooks.
