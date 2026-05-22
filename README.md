@@ -304,6 +304,7 @@ Copy `.env.example` to `.env` and fill in the required keys:
 - `DATABASE_URL` (Your PostgreSQL connection string)
 - `BETTER_AUTH_SECRET`, `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` (For authentication)
 - `GEMINI_API_KEY` (For AI reviews)
+- `PINECONE_API_KEY` (For Vector Database)
 - `POLAR_ACCESS_TOKEN`, `POLAR_WEBHOOK_SECRET` (For payments)
 - `GITHUB_APP_ID`, `GITHUB_PRIVATE_KEY`, `GITHUB_WEBHOOK_SECRET` (For the GitHub App)
 
