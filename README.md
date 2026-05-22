@@ -207,6 +207,33 @@ xychart-beta
     bar [150, 5, 1]
 ```
 
+#### 5. Context Window Efficiency (Tokens Used - Lower is Better)
+```mermaid
+xychart-beta
+    title "Context Window Efficiency (Tokens Used per PR)"
+    x-axis ["Standard AI (Full Repo)", "RepoShield (RAG Context)"]
+    y-axis "Tokens" 0 --> 100000
+    bar [100000, 5000]
+```
+
+#### 6. Security Vulnerability Catch Rate (Higher is Better)
+```mermaid
+xychart-beta
+    title "Security Vulnerability Catch Rate (%)"
+    x-axis ["Manual Review", "Standard AI", "RepoShield"]
+    y-axis "Catch Rate %" 0 --> 100
+    bar [60, 40, 95]
+```
+
+#### 7. API Resilience Under Load (Lower is Better)
+```mermaid
+xychart-beta
+    title "Failed Requests During Traffic Spike (per 100 PRs)"
+    x-axis ["Standard AI (Direct API)", "RepoShield (Inngest Queue)"]
+    y-axis "Failed Requests" 0 --> 50
+    bar [45, 0]
+```
+
 ### Tech Stack Integration Flow
 
 ```mermaid
