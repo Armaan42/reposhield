@@ -223,7 +223,7 @@ graph TD
 
     %% AI Pipeline (RAG)
     JobQueue -->|Pass Raw Code| Embeddings
-    Embeddings -->|Return Float[768] Vectors| PineconeDB
+    Embeddings -->|Return 768-Dimensional Vectors| PineconeDB
     JobQueue -->|Semantic Similarity Search| PineconeDB
     PineconeDB -->|Return Top-K Relevant Chunks| JobQueue
     JobQueue -->|Construct Context-Aware Prompt| GeminiLLM
