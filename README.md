@@ -167,6 +167,75 @@ Ultimately, this innovative solution significantly reduces the extensive time an
 - Background processing using Inngest will handle asynchronous tasks such as repository indexing and AI review generation.
 - Together, these technologies will work in an integrated architecture to provide a scalable, automated, and context-aware code review system.
 
+### Tech Stack Integration Flow
+
+```mermaid
+graph TD
+    %% Styling
+    classDef client fill:#333,stroke:#666,stroke-width:2px,color:#fff;
+    classDef server fill:#444,stroke:#666,stroke-width:2px,color:#fff;
+    classDef database fill:#555,stroke:#666,stroke-width:2px,color:#fff;
+    classDef external fill:#222,stroke:#666,stroke-width:2px,color:#fff;
+
+    subgraph User & Client Presentation
+        Browser[Modern Web Browser\nTanStack Query]
+        Client[Next.js React Server Components\nTailwind CSS / Shadcn UI]
+    end
+
+    subgraph Core Infrastructure Layer
+        NextRouter[Next.js App Router API\nEdge Network]
+        Auth[Better Auth Middleware\nSession Management]
+        Payment[Polar.sh Integration\nSubscription Webhooks]
+        JobQueue[Inngest Event Bus\nServerless Job Orchestrator]
+    end
+
+    subgraph Data & Vector Persistence
+        PrismaORM[Prisma ORM Client\nConnection Pooling]
+        PostgresDB[(PostgreSQL Relational DB\nUsers, Repos, Reviews)]
+        Embeddings[Google gemini-embedding-001\nText-to-Vector Encoder]
+        PineconeDB[(Pinecone Vector Database\nHigh-Dimensional Index)]
+    end
+
+    subgraph External Platforms & AI Models
+        GitHubApp[GitHub App Integration\nWebhook Payload Delivery]
+        Octokit[Octokit REST API Client\nRate-Limited API Fetcher]
+        GeminiLLM[Google gemma-4-31b-it\nGenerative AI Core]
+    end
+
+    %% Client flows
+    Browser -->|HTTP/HTTPS\nJSON Payloads| Client
+    Client -->|Server Actions| NextRouter
+    NextRouter <-->|JWT Validation| Auth
+
+    %% Background Orchestration
+    NextRouter -->|Asynchronous Event Dispatch\npr.review.requested| JobQueue
+    Payment -->|Plan Upgrades/Downgrades| NextRouter
+
+    %% Data flow
+    NextRouter <-->|Read/Write Operations| PrismaORM
+    JobQueue <-->|State Updates| PrismaORM
+    PrismaORM <-->|TCP/IP Connection| PostgresDB
+
+    %% GitHub Integration
+    GitHubApp -->|POST /api/webhooks/github\nHMAC Validated| NextRouter
+    JobQueue -->|GraphQL / REST API Calls| Octokit
+    Octokit <-->|Fetch Commits & Files| GitHubApp
+
+    %% AI Pipeline (RAG)
+    JobQueue -->|Pass Raw Code| Embeddings
+    Embeddings -->|Return Float[768] Vectors| PineconeDB
+    JobQueue -->|Semantic Similarity Search| PineconeDB
+    PineconeDB -->|Return Top-K Relevant Chunks| JobQueue
+    JobQueue -->|Construct Context-Aware Prompt| GeminiLLM
+    GeminiLLM -->|Stream Markdown Review| JobQueue
+
+    %% Diagram classes
+    class Browser,Client client;
+    class NextRouter,Auth,JobQueue,Payment,Octokit,Embeddings server;
+    class PrismaORM,PostgresDB,PineconeDB database;
+    class GitHubApp,GeminiLLM external;
+```
+
 The system uses a Next.js frontend and backend to manage user interaction and API communication. GitHub webhooks trigger background jobs that process pull requests and retrieve repository context from a vector database. The retrieved context and code changes are analyzed using a generative AI model to produce structured code reviews, which are stored in the database and displayed in the dashboard.
 
 ### System Architecture
