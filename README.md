@@ -198,6 +198,15 @@ xychart-beta
     bar [12, 96]
 ```
 
+#### 4. Operational Cost per Review ($) (Lower is Better)
+```mermaid
+xychart-beta
+    title "Average Operational Cost per PR Review (USD $)"
+    x-axis ["Manual Review", "Standard AI", "RepoShield"]
+    y-axis "Cost ($)" 0 --> 150
+    bar [150, 5, 1]
+```
+
 ### Tech Stack Integration Flow
 
 ```mermaid
