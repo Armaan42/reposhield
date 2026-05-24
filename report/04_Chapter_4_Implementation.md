@@ -29,7 +29,7 @@ A critical implementation challenge involved managing the API quotas imposed by 
 | `BATCH_PAUSE_MS` | 2,000 ms | Cool-down period between batches to reset burst quotas. |
 | `MAX_RETRIES` | 3 | Inngest exponential backoff retry count on 429 errors. |
 
-**Figure 4.3: Repository Onboarding and Vector Indexing Sequence**
+**Figure 4.1: Repository Onboarding and Vector Indexing Sequence**
 
 ```mermaid
 sequenceDiagram
@@ -144,7 +144,7 @@ The prompt is constructed via string interpolation, injecting the PR Title, PR D
 5.  **Suggestions**: Specific, actionable refactoring advice.
 6.  **Vulnerability Assessment**: A proactive scan evaluating susceptibility to common attack vectors (e.g., SQL Injection, XSS, CSRF).
 
-**Figure 4.1: RAG Pipeline Data Flow**
+**Figure 4.2: RAG Pipeline Data Flow**
 
 ```mermaid
 graph TD
@@ -193,7 +193,7 @@ Security was implemented at two critical layers: user authentication and webhook
 
 **Webhook Validation:** To prevent malicious actors from sending forged POST requests to the `/api/webhooks/github` endpoint, strict payload validation was implemented. GitHub secures its webhooks by computing an HMAC hex digest of the request body using a predefined secret, sending this digest in the `X-Hub-Signature-256` header. The Next.js API route intercepts the raw request body, utilizes the Node.js `crypto` module to compute its own SHA256 HMAC using the stored `GITHUB_CLIENT_SECRET`, and compares the two hashes using a constant-time string comparison function. If the hashes match, the payload is authentic; otherwise, the request is immediately rejected with a 401 Unauthorized status.
 
-**Figure 4.2: Webhook HMAC Cryptographic Validation Flow**
+**Figure 4.3: Webhook HMAC Cryptographic Validation Flow**
 
 ```mermaid
 graph TD

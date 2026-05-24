@@ -53,7 +53,7 @@ Furthermore, the internal gamification engine successfully parsed the review tex
 
 System performance was closely monitored during the experimental phase. Achieving low latency while maintaining context-heavy generation is a primary engineering challenge.
 
-**Table 5.3: System Latency Benchmarks (Averaged over 50 executions)**
+**Table 5.2: System Latency Benchmarks (Averaged over 50 executions)**
 
 | Processing Phase | Average Latency (ms) | Standard Deviation | 
 |------------------|----------------------|--------------------|
@@ -65,14 +65,14 @@ System performance was closely monitored during the experimental phase. Achievin
 | **Total End-to-End Latency**| **~14,015 ms** | **± 2,352 ms** |
 
 *   **Embedding Speed:** With the implemented rate-limiting algorithm (1s delay per file, 2s pause per batch of 5), indexing a standard 50-file repository took approximately 90 seconds. While slower than unthrottled execution, it successfully prevented all `429 Too Many Requests` errors from the Gemini API, ensuring 100% indexing reliability.
-*   **Review Latency:** As shown in Table 5.3, the end-to-end latency—from the moment the PR was opened on GitHub to the moment the review comment was posted—averaged around 14 seconds. This speed is a massive improvement over traditional manual reviews, which often take hours or days to initiate.
+*   **Review Latency:** As shown in Table 5.2, the end-to-end latency—from the moment the PR was opened on GitHub to the moment the review comment was posted—averaged around 14 seconds. This speed is a massive improvement over traditional manual reviews, which often take hours or days to initiate.
 *   **API Resilience:** To test the system's fault tolerance, simulated network timeouts were intentionally introduced to block the Gemini API. The Inngest orchestrator successfully intercepted the failure, applied an exponential backoff algorithm, and retried the generation step 3 minutes later, ultimately completing the review without dropping the event or losing data.
 
 ## 5.5 Comparison with Existing Systems
 
 To further contextualize the results, the same test Pull Request was evaluated using a standard Static Application Security Testing (SAST) tool (SonarQube) and a standard, non-RAG Conversational AI (ChatGPT).
 
-**Table 5.2: Comparison of Code Review Methodologies**
+**Table 5.3: Comparison of Code Review Methodologies**
 
 | Feature / Tool | RepoShield (RAG + AI) | SAST (SonarQube) | Standard AI (ChatGPT) |
 | :--- | :--- | :--- | :--- |

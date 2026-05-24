@@ -59,7 +59,7 @@ The scope of the RepoShield project encompasses the end-to-end lifecycle of an a
 * The platform relies on external APIs (Gemini, Pinecone, GitHub), meaning its uptime and latency are partially dependent on third-party service availability.
 * Auto-fixing or directly committing code changes back to the repository is excluded from the current scope to prevent unintended architectural changes without human oversight.
 
-**Table 1.2: Scope of the Project (Inclusions vs Exclusions)**
+**Table 1.1: Scope of the Project (Inclusions vs Exclusions)**
 
 | Domain | Included in RepoShield Scope | Excluded from Current Scope |
 |--------|------------------------------|-----------------------------|
@@ -92,7 +92,7 @@ To provide a comprehensive understanding of the RepoShield project, this report 
 
 ---
 
-**Table 1.1: Project Schedule and Phases**
+**Table 1.2: Project Schedule and Phases**
 
 | S. No. | Phase of Development | Activities To Be Carried Out | Deadline |
 |--------|---------------------|------------------------------|----------|

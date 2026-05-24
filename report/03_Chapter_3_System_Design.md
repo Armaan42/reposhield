@@ -84,7 +84,7 @@ While the codebase is technically housed in a single monorepo, it behaves in pro
 3. **The State Management Node (Prisma + Neon):** This node maintains the application's source of truth. It manages relational constraints, such as ensuring a user on the FREE tier cannot onboard a 6th repository. It uses a serverless connection pooler (pgBouncer) to ensure that bursts of concurrent webhook traffic do not exhaust the database's maximum TCP connection limit.
 4. **The Inference Node (Gemini + Pinecone):** The pure "intelligence" layer. The Worker node streams raw code text into the Pinecone database to be converted into continuous vectors. During a PR review, it performs the Cosine Similarity math. Finally, the Google Gemini instance acts as the final inference engine, reading the compiled prompt and streaming the generated markdown back to the Worker Node.
 
-**Figure 3.1b: Component-Level Microservice Flow**
+**Figure 3.2: Component-Level Microservice Flow**
 
 ```mermaid
 flowchart LR
@@ -127,7 +127,7 @@ Handling AI operations synchronously within a standard HTTP request cycle is an 
 
 When events like `repository.connected` or `pr.review.requested` are fired, Inngest intercepts them and executes the corresponding functions (`indexRepo` and `generateReview`) in the background. Inngest provides out-of-the-box features crucial for this project, including step-level state recovery, exponential backoffs for API rate limits, and concurrency management (e.g., limiting the system to process a maximum of 5 concurrent reviews to prevent Gemini API quota exhaustion).
 
-**Figure 3.2: Event-Driven Inngest Background Pipeline**
+**Figure 3.4: Event-Driven Inngest Background Pipeline**
 
 ```mermaid
 sequenceDiagram
@@ -153,7 +153,7 @@ The core innovation of RepoShield is its Retrieval-Augmented Generation (RAG) pi
 ### 3.2.4 Payment & Subscription Tiering
 To ensure the platform is financially viable, RepoShield integrates with **Polar.sh** for monetization. The payment module handles checkout procedures and listens to Polar webhooks to update user subscription statuses in the PostgreSQL database. Enforcement logic (`canConnectRepository` and `canCreateReview`) restricts FREE tier users to a maximum of 5 repositories and 5 automated reviews per repository. Upgrading to the PRO tier via the dashboard lifts these restrictions.
 
-**Figure 3.4: Polar.sh Subscription Flow**
+**Figure 3.5: Polar.sh Subscription Flow**
 
 ```mermaid
 sequenceDiagram
