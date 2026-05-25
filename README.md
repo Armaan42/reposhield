@@ -213,7 +213,7 @@ xychart-beta
 
 > [!TIP]
 > <details>
-> <summary><b>📊 Data Sourcing, Interpretation & Academic Baselines (Click to expand)</b></summary>
+> <summary><b>Data Sourcing, Interpretation & Academic Baselines (Click to expand)</b></summary>
 > <br>
 > 
 > *   **Where to Find the Data:** Sourced directly from the methodology comparison in **Table 5.3** in the project's [Chapter 5 Results & Discussion](https://github.com/Armaan42/reposhield/blob/main/report/05_Chapter_5_Results.md#L75-L85). RepoShield's vector database grounding achieves a **4% error rate**, whereas non-context standard AI averages **68%**.
@@ -232,7 +232,7 @@ xychart-beta
 
 > [!TIP]
 > <details>
-> <summary><b>📊 Data Sourcing, Interpretation & Academic Baselines (Click to expand)</b></summary>
+> <summary><b>Data Sourcing, Interpretation & Academic Baselines (Click to expand)</b></summary>
 > <br>
 > 
 > *   **Where to Find the Data:** Sourced from **Table 5.3 (Comparison of Code Review Methodologies)** in the project's [Chapter 5 Results & Discussion](https://github.com/Armaan42/reposhield/blob/main/report/05_Chapter_5_Results.md#L75-L85).
@@ -251,7 +251,7 @@ xychart-beta
 
 > [!TIP]
 > <details>
-> <summary><b>📊 Data Sourcing, Interpretation & Academic Baselines (Click to expand)</b></summary>
+> <summary><b>Data Sourcing, Interpretation & Academic Baselines (Click to expand)</b></summary>
 > <br>
 > 
 > *   **Where to Find the Data:** Calculated based on standard developer hourly billing rates ($75/hr) and Gemini API token costs under typical review payloads.
@@ -270,7 +270,7 @@ xychart-beta
 
 > [!TIP]
 > <details>
-> <summary><b>📊 Data Sourcing, Interpretation & Academic Baselines (Click to expand)</b></summary>
+> <summary><b>Data Sourcing, Interpretation & Academic Baselines (Click to expand)</b></summary>
 > <br>
 > 
 > *   **Where to Find the Data:** Sourced from token calculation logs and massive PR edge cases outlined in **Section 5.6 (Edge Case Analysis)** in the project's [Chapter 5 Results & Discussion](https://github.com/Armaan42/reposhield/blob/main/report/05_Chapter_5_Results.md#L91).
@@ -289,7 +289,7 @@ xychart-beta
 
 > [!TIP]
 > <details>
-> <summary><b>📊 Data Sourcing, Interpretation & Academic Baselines (Click to expand)</b></summary>
+> <summary><b>Data Sourcing, Interpretation & Academic Baselines (Click to expand)</b></summary>
 > <br>
 > 
 > *   **Where to Find the Data:** Sourced from the comparison metrics in **Table 5.3** and **Section 5.2 (Analysis of Test Case 01)** in the project's [Chapter 5 Results & Discussion](https://github.com/Armaan42/reposhield/blob/main/report/05_Chapter_5_Results.md#L75-L85).
@@ -308,7 +308,7 @@ xychart-beta
 
 > [!TIP]
 > <details>
-> <summary><b>📊 Data Sourcing, Interpretation & Academic Baselines (Click to expand)</b></summary>
+> <summary><b>Data Sourcing, Interpretation & Academic Baselines (Click to expand)</b></summary>
 > <br>
 > 
 > *   **Where to Find the Data:** Sourced from system rate-limiting tests and queue fault-tolerance benchmarks detailed in **Section 5.4 & 5.6** in the project's [Chapter 5 Results & Discussion](https://github.com/Armaan42/reposhield/blob/main/report/05_Chapter_5_Results.md#L67).
