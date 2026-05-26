@@ -22,12 +22,14 @@ A critical implementation challenge involved managing the API quotas imposed by 
 
 **Table 4.1: API Rate Limiting Configuration**
 
-| Parameter Name | Value | Purpose |
-|----------------|-------|---------|
-| `EMBED_DELAY_MS` | 1,000 ms | Prevents instantaneous requests on per-file loop. |
-| `EMBED_BATCH_SIZE` | 5 files | Groups files into manageable execution batches. |
-| `BATCH_PAUSE_MS` | 2,000 ms | Cool-down period between batches to reset burst quotas. |
-| `MAX_RETRIES` | 3 | Inngest exponential backoff retry count on 429 errors. |
+| Configuration Parameter | Value | Sub-System Module | Strategic Purpose / Justification |
+| :--- | :--- | :--- | :--- |
+| `EMBED_DELAY_MS` | 1,000 ms | Vector Indexing | Injects a mandatory 1-second pause between individual embedding calls to prevent instantaneous trigger rejections by the Gemini API free tier. |
+| `EMBED_BATCH_SIZE` | 5 files | Vector Indexing | Groups files into logical execution batches, preventing the network pipeline from overflowing the outgoing connection pool. |
+| `BATCH_PAUSE_MS` | 2,000 ms | Vector Indexing | Provides a 2-second cool-down period between batches, allowing Google's API burst-quota tokens to refresh securely. |
+| `MAX_RETRIES` | 3 attempts | Inngest Event Queue | Enables exponential backoff for `429 Too Many Requests` or `503 Service Unavailable` errors during PR review generation. |
+| `PINECONE_TOP_K` | 5 results | RAG Context Engine | Limits semantic retrieval to the top 5 most relevant vectors, optimizing the LLM context window to prevent token starvation. |
+| `HMAC_TOLERANCE` | Strict (`timingSafeEqual`) | Webhook Security | Mandates constant-time string comparison for all cryptographic webhook validations to definitively prevent timing attacks. |
 
 **Figure 4.1: Repository Onboarding and Vector Indexing Sequence**
 
@@ -242,13 +244,15 @@ The Developer Insights page (`app/dashboard/insights`) integrates the **Recharts
 
 **Table 4.2: Core API Endpoints & Server Actions**
 
-| Endpoint / Action | Method | Purpose | Authentication |
-|-------------------|--------|---------|----------------|
-| `/api/webhooks/github` | `POST` | Receives PR opened/synchronized events. | HMAC Signature |
-| `/api/webhooks/polar` | `POST` | Receives subscription upgrades/downgrades. | Polar Signature |
-| `/api/auth/[...all]` | `GET/POST`| Better Auth generic provider handlers. | None (Public) |
-| `linkRepository()` | Server Action | Saves repository to DB and triggers indexing. | Session Cookie |
-| `generateReview()` | Inngest Func | Generates the markdown review via RAG. | Internal Inngest |
+| Endpoint / Sub-Routine | Invocation Method | Primary Responsibility & Purpose | Security / Authentication Protocol |
+| :--- | :--- | :--- | :--- |
+| `/api/webhooks/github` | REST `POST` | The primary ingress point for GitHub. Receives `pull_request.opened` and `synchronize` events. | Cryptographic SHA-256 HMAC Signature via `X-Hub-Signature-256`. |
+| `/api/webhooks/polar` | REST `POST` | Intercepts billing events (upgrades/downgrades) to instantly update the user's monetized tier in Prisma. | Polar.sh Webhook Signature Validation. |
+| `/api/auth/[...all]` | REST `GET/POST` | Exposes standard Better Auth provider handlers to manage OAuth handshakes and session rotation. | Public (Handled by Better Auth Core). |
+| `linkRepository()` | React Server Action | Saves newly tracked GitHub repositories to the database and dispatches the initial indexing event. | Secure HTTP-Only Session Cookie validation. |
+| `indexCodebase()` | Inngest Background Function | Recursively fetches the GitHub tree, generates vector embeddings (with rate limiting), and upserts to Pinecone. | Internal Inngest Execution Context. |
+| `generateReview()` | Inngest Background Function | Orchestrates the core RAG pipeline: queries Pinecone, injects the diff, queries Gemini, and posts to Octokit. | Internal Inngest Execution Context. |
+| `/dashboard/insights` | React Server Component | Executes complex SQL aggregations via Prisma to render the user's historical code review metrics. | Secure HTTP-Only Session Cookie validation. |
 
 ## 4.5 External API Integrations
 

@@ -61,13 +61,18 @@ The scope of the RepoShield project encompasses the end-to-end lifecycle of an a
 
 **Table 1.1: Scope of the Project (Inclusions vs Exclusions)**
 
-| Domain | Included in RepoShield Scope | Excluded from Current Scope |
-|--------|------------------------------|-----------------------------|
-| **Version Control** | GitHub Repositories | GitLab, Bitbucket, Azure DevOps |
-| **Analysis Scope** | Text-based source code (TS, JS, Python, etc.) | Binary files, Images, Compiled Assets |
-| **Actions** | Posting Markdown Review Comments | Pushing Auto-Fix Commits |
-| **Intelligence** | Google Gemini (`gemma-4-31b-it`) via RAG | Self-hosted local LLMs (e.g., LLaMA) |
-| **Monetization**| Subscription Tiering via Polar.sh | Custom Enterprise Billing Invoices |
+| Domain | Included in RepoShield Scope (In-Scope) | Excluded from Current Scope (Out-of-Scope) |
+| :--- | :--- | :--- |
+| **Version Control Integration** | Seamless integration with GitHub via GitHub Apps & Webhooks. | GitLab, Bitbucket, Azure DevOps, and Subversion (SVN). |
+| **Code Analysis Scope** | Text-based programming languages (e.g., TypeScript, Python, Go, JS). | Binary files, executable binaries, images, and pre-compiled assets. |
+| **Automated Actions** | Generating and posting detailed Markdown review comments on PRs. | Directly pushing auto-fix commits or auto-merging pull requests. |
+| **Artificial Intelligence** | Cloud-based LLM inference (Google Gemini) augmented via RAG. | Self-hosted local LLMs (e.g., LLaMA, Mistral) and fine-tuned proprietary models. |
+| **Contextual Awareness** | Semantic retrieval using Pinecone Vector DB for project-wide context. | Zero-shot prompting without awareness of external repository files. |
+| **System Architecture** | Serverless, event-driven background job processing using Inngest. | Monolithic, synchronous batch processing or long-polling architectures. |
+| **Security Auditing** | Static analysis for hardcoded secrets, code smells, and logic flaws. | Dynamic Application Security Testing (DAST) and active penetration testing. |
+| **Trigger Mechanism** | Real-time, event-driven webhook triggers on `pull_request.opened`. | Manual review triggering via CLI or scheduled Cron job executions. |
+| **User Interface** | Web-based Next.js dashboard featuring Recharts data visualization. | Native desktop applications or integrated IDE plugins (e.g., VS Code extensions). |
+| **Monetization Strategy** | Automated freemium subscription tiering managed via Polar.sh. | Custom enterprise billing invoices and on-premise licensing models. |
 
 ## 1.5 Significance and Beneficiaries of the Project
 
@@ -94,9 +99,13 @@ To provide a comprehensive understanding of the RepoShield project, this report 
 
 **Table 1.2: Project Schedule and Phases**
 
-| S. No. | Phase of Development | Activities To Be Carried Out | Deadline |
-|--------|---------------------|------------------------------|----------|
-| 1. | Analysis and Specification | Requirement gathering, RAG architecture research, literature survey | 15 Feb 2026 |
-| 2. | Designing | Feature-Module pattern architecture, DB schema, UI wireframes | 28 Feb 2026 |
-| 3. | Implementation | Inngest integration, Webhooks, Pinecone embeddings, Polar.sh | 30 Apr 2026 |
-| 4. | Testing | End-to-end testing, AI review validation, dashboard metrics | 25 May 2026 |
+| S. No. | Phase of Development | Key Activities & Deliverables | Timeline / Deadline |
+| :---: | :--- | :--- | :--- |
+| **1.** | **Requirements & Feasibility** | Literature survey, problem formulation, technology stack selection, and defining RAG context architecture. | *Mid-Feb 2026* |
+| **2.** | **System Design & Prototyping** | Architecting the Feature-Module pattern, designing PostgreSQL schema, planning Inngest background job flows, and creating UI wireframes. | *End-Feb 2026* |
+| **3.** | **Core Backend Implementation** | Configuring GitHub Apps webhooks, building the Pinecone vector indexing logic, and establishing secure Better Auth authentication. | *Mid-Mar 2026* |
+| **4.** | **AI & RAG Integration** | Integrating Google Gemini API (`gemma-4-31b-it`), optimizing semantic context retrieval, and writing strict markdown generation prompts. | *End-Mar 2026* |
+| **5.** | **Frontend & Dashboard** | Developing Next.js 15 UI, Recharts data visualization for review metrics, and integrating Polar.sh for freemium subscription tiering. | *Mid-Apr 2026* |
+| **6.** | **Security & Rate Limiting** | Implementing HMAC signature validation for webhooks, exponential backoff retries, and API rate-limiting guardrails. | *End-Apr 2026* |
+| **7.** | **Testing & Benchmarking** | End-to-end simulation of Pull Requests, evaluating hallucination rates, measuring latency bottlenecks, and conducting edge-case testing. | *Mid-May 2026* |
+| **8.** | **Final Deployment & Documentation**| Compiling final project reports, drafting README documentation, and staging final production deployment. | *End-May 2026* |

@@ -21,11 +21,13 @@ The recent advent of Large Language Models (LLMs) has given rise to tools like G
 
 **Table 2.1: Summary of Existing Code Review Methodologies**
 
-| Methodology | Primary Advantage | Major Drawback | Contextual Awareness? |
-|-------------|-------------------|----------------|-----------------------|
-| **Manual Review** | High accuracy for custom business logic | Slow, prone to human fatigue | Yes (Depends on Human) |
-| **SAST (SonarQube)** | Fast, automated, deterministic | High false-positive rate, rigid | No (File-by-file) |
-| **Basic AI (Copilot)**| Excellent for inline autocomplete | IDE-locked, no automated PR checks| Partial (Current File) |
+| Methodology / Tool Category | Primary Advantage & Strengths | Major Drawbacks & Limitations | Contextual Awareness? | Scalability & Latency |
+| :--- | :--- | :--- | :--- | :--- |
+| **Manual Peer Review** | Unmatched accuracy for complex business logic, architectural constraints, and subjective design patterns. | Extremely slow (averaging 120 mins), expensive, and highly prone to developer fatigue or oversight. | **Yes** (Wholly dependent on the reviewer's historical project knowledge). | Very Low (Does not scale automatically; creates CI/CD bottlenecks). |
+| **SAST (e.g., SonarQube, Snyk)** | Fast, automated, and strictly deterministic execution perfectly suited for CI pipelines. | Rigid rulesets cause high false-positive rates; cannot detect logical flaws or suggest refactoring. | **No** (Strictly file-by-file execution using Abstract Syntax Trees). | High (Automated processing scales infinitely but lacks depth). |
+| **Basic AI (e.g., GitHub Copilot)**| Excellent for inline autocomplete, boilerplate generation, and isolated syntax explanations. | Locked to the developer's local IDE; does not act as an automated gatekeeper on Pull Requests. | **Partial** (Aware of the currently open file and adjacent open tabs). | Medium (Developer must manually drive the AI interaction). |
+| **Conversational LLMs (e.g., ChatGPT)**| High generative capability and deep understanding of standard algorithms and code structures. | Requires manual copy-pasting of code, stripping away global repository context leading to severe hallucinations. | **No** (Context is limited to whatever the user explicitly pastes into the prompt). | Low (Zero automation; relies entirely on manual copy-pasting). |
+| **RAG-Augmented AI (RepoShield)** | Deep contextual insight mimicking a human, but operating at the speed and scale of a SAST tool. | High initial setup complexity (vector embedding) and dependence on cloud LLM uptime/latency. | **Yes** (Retrieves semantic knowledge from the entire repository via Pinecone). | High (Automated webhook execution via Inngest handles parallel traffic spikes). |
 
 ## 2.2 Research Gaps
 
