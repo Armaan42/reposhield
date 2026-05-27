@@ -173,6 +173,7 @@ Here is a visual breakdown of the advancements made by RepoShield compared to st
 
 #### 1. Code Review Time (Lower is Better)
 ```mermaid
+%%{init: { "themeVariables": { "xyChart": { "backgroundColor": "#ffffff", "titleColor": "#000000", "xAxisLabelColor": "#000000", "xAxisTitleColor": "#000000", "yAxisLabelColor": "#000000", "yAxisTitleColor": "#000000", "xAxisTickColor": "#000000", "yAxisTickColor": "#000000", "xAxisLineColor": "#000000", "yAxisLineColor": "#000000" } } } }%%
 xychart-beta
     title "Average Time to Complete a PR Review (Minutes)"
     x-axis ["Manual Review", "Standard AI", "RepoShield"]
@@ -204,6 +205,7 @@ xychart-beta
 
 #### 2. Hallucination Rate (Lower is Better)
 ```mermaid
+%%{init: { "themeVariables": { "xyChart": { "backgroundColor": "#ffffff", "titleColor": "#000000", "xAxisLabelColor": "#000000", "xAxisTitleColor": "#000000", "yAxisLabelColor": "#000000", "yAxisTitleColor": "#000000", "xAxisTickColor": "#000000", "yAxisTickColor": "#000000", "xAxisLineColor": "#000000", "yAxisLineColor": "#000000" } } } }%%
 xychart-beta
     title "AI Hallucination / False Positive Rate (%)"
     x-axis ["Standard AI (No Context)", "RepoShield (RAG Context)"]
@@ -223,6 +225,7 @@ xychart-beta
 
 #### 3. Context Awareness & Accuracy (Higher is Better)
 ```mermaid
+%%{init: { "themeVariables": { "xyChart": { "backgroundColor": "#ffffff", "titleColor": "#000000", "xAxisLabelColor": "#000000", "xAxisTitleColor": "#000000", "yAxisLabelColor": "#000000", "yAxisTitleColor": "#000000", "xAxisTickColor": "#000000", "yAxisTickColor": "#000000", "xAxisLineColor": "#000000", "yAxisLineColor": "#000000" } } } }%%
 xychart-beta
     title "Repository Context Awareness & Security Accuracy (%)"
     x-axis ["Standard AI", "RepoShield"]
@@ -242,6 +245,7 @@ xychart-beta
 
 #### 4. Operational Cost per Review ($) (Lower is Better)
 ```mermaid
+%%{init: { "themeVariables": { "xyChart": { "backgroundColor": "#ffffff", "titleColor": "#000000", "xAxisLabelColor": "#000000", "xAxisTitleColor": "#000000", "yAxisLabelColor": "#000000", "yAxisTitleColor": "#000000", "xAxisTickColor": "#000000", "yAxisTickColor": "#000000", "xAxisLineColor": "#000000", "yAxisLineColor": "#000000" } } } }%%
 xychart-beta
     title "Average Operational Cost per PR Review (USD $)"
     x-axis ["Manual Review", "Standard AI", "RepoShield"]
@@ -261,6 +265,7 @@ xychart-beta
 
 #### 5. Context Window Efficiency (Tokens Used - Lower is Better)
 ```mermaid
+%%{init: { "themeVariables": { "xyChart": { "backgroundColor": "#ffffff", "titleColor": "#000000", "xAxisLabelColor": "#000000", "xAxisTitleColor": "#000000", "yAxisLabelColor": "#000000", "yAxisTitleColor": "#000000", "xAxisTickColor": "#000000", "yAxisTickColor": "#000000", "xAxisLineColor": "#000000", "yAxisLineColor": "#000000" } } } }%%
 xychart-beta
     title "Context Window Efficiency (Tokens Used per PR)"
     x-axis ["Standard AI (Full Repo)", "RepoShield (RAG Context)"]
@@ -280,6 +285,7 @@ xychart-beta
 
 #### 6. Security Vulnerability Catch Rate (Higher is Better)
 ```mermaid
+%%{init: { "themeVariables": { "xyChart": { "backgroundColor": "#ffffff", "titleColor": "#000000", "xAxisLabelColor": "#000000", "xAxisTitleColor": "#000000", "yAxisLabelColor": "#000000", "yAxisTitleColor": "#000000", "xAxisTickColor": "#000000", "yAxisTickColor": "#000000", "xAxisLineColor": "#000000", "yAxisLineColor": "#000000" } } } }%%
 xychart-beta
     title "Security Vulnerability Catch Rate (%)"
     x-axis ["Manual Review", "Standard AI", "RepoShield"]
@@ -299,6 +305,7 @@ xychart-beta
 
 #### 7. API Resilience Under Load (Lower is Better)
 ```mermaid
+%%{init: { "themeVariables": { "xyChart": { "backgroundColor": "#ffffff", "titleColor": "#000000", "xAxisLabelColor": "#000000", "xAxisTitleColor": "#000000", "yAxisLabelColor": "#000000", "yAxisTitleColor": "#000000", "xAxisTickColor": "#000000", "yAxisTickColor": "#000000", "xAxisLineColor": "#000000", "yAxisLineColor": "#000000" } } } }%%
 xychart-beta
     title "Failed Requests During Traffic Spike (per 100 PRs)"
     x-axis ["Standard AI (Direct API)", "RepoShield (Inngest Queue)"]
