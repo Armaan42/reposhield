@@ -108,6 +108,8 @@ flowchart LR
 
 ## 3.2 Module Design
 
+The system is decomposed into a set of specialized, cohesive modules that collaborate to execute the automated code review workflow. This section outlines the functional design, responsibilities, and integration strategies for the key components of the platform, including secure webhook ingestion, resilient event-driven execution pipelines, vector-based semantic search networks, and subscription-based tier enforcement. Each module is engineered to prioritize security, low latency, and high horizontal scalability under parallel execution spikes.
+
 ### 3.2.1 GitHub Webhook & App Integration Module
 RepoShield operates as a certified, installable GitHub App rather than a simple OAuth script. Upon installation, the platform requests granular, least-privilege permissions: `Pull Requests: Read & Write` and `Repository Contents: Read`. 
 
