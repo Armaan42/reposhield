@@ -1,5 +1,7 @@
 # CHAPTER 2: LITERATURE SURVEY & PROBLEM FORMULATION
 
+This chapter presents a comprehensive review of the existing methodologies and tools used for code review and security auditing in modern software development. It critically examines the strengths and limitations of manual reviews, static analysis tools, and AI-assisted coding platforms. Through a structured comparative analysis, the chapter identifies the key research gaps in current implementations and formally defines the problem statement that RepoShield is designed to address.
+
 ## 2.1 Review of Existing Work
 
 The integration of quality assurance and security checks into the software development lifecycle has evolved significantly over the years. A comprehensive review of the current landscape reveals three primary methodologies for code review and security auditing: Manual Code Reviews, Static Application Security Testing (SAST) tools, and localized AI Coding Assistants.

@@ -1,5 +1,7 @@
 # CHAPTER 6: CONCLUSION & FUTURE SCOPE
 
+This chapter consolidates the findings and contributions of the RepoShield project. It summarizes the key technical achievements, draws conclusions from the experimental results presented in the preceding chapters, acknowledges the current limitations of the system, and outlines concrete directions for future research and development that could further enhance the platform's capabilities.
+
 ## 6.1 Summary of the Project
 
 The primary goal of this project was to design and develop RepoShield, an autonomous, AI-powered code review platform capable of executing intelligent, context-aware security audits on GitHub Pull Requests. By synthesizing modern web technologies with advanced Artificial Intelligence, the project successfully delivered a robust, event-driven application that operates seamlessly within the developer's native CI/CD workflow.

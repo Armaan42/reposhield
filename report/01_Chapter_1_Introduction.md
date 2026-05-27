@@ -1,5 +1,7 @@
 # CHAPTER 1: INTRODUCTION
 
+This chapter establishes the foundational context for the RepoShield project. It begins by examining the evolving landscape of modern software development and the critical role code review plays in maintaining quality and security. The discussion then transitions into the specific motivations that led to the development of an AI-powered, context-aware code review system, followed by clearly defined project objectives, scope boundaries, and the intended beneficiaries. The chapter concludes with an overview of how the remainder of this report is organized.
+
 ## 1.1 Background
 
 The modern software development life cycle (SDLC) has undergone a paradigm shift over the past decade. The widespread adoption of Agile methodologies and DevOps practices has fundamentally accelerated the speed at which software is built, tested, and deployed. Central to this acceleration is the implementation of Continuous Integration and Continuous Deployment (CI/CD) pipelines. In a CI/CD-driven environment, developers frequently push code changes to shared repositories, necessitating rigorous automated testing and peer code reviews before those changes can be merged into the primary production branch.

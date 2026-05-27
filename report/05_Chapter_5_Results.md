@@ -1,5 +1,7 @@
 # CHAPTER 5: RESULTS & DISCUSSION
 
+This chapter evaluates the performance and effectiveness of the RepoShield platform through a series of controlled experiments. It details the experimental setup, presents a thorough analysis of the AI-generated review outputs, examines system latency benchmarks, and provides a comparative assessment against existing manual and automated code review methodologies. The chapter concludes with an analysis of edge cases and the system's fault-tolerance mechanisms.
+
 ## 5.1 Experimental Setup & Execution
 
 To validate the efficacy and accuracy of RepoShield, a controlled experimental environment was established. A test repository simulating a standard Next.js application was connected to the platform, triggering the initial Pinecone vector indexing process. 

@@ -1,5 +1,7 @@
 # CHAPTER 4: IMPLEMENTATION
 
+This chapter presents the granular, technical implementation details of the RepoShield platform. It walks through the development environment setup, the webhook security mechanisms, the vector embedding and indexing pipeline, the AI prompt engineering strategy, and the construction of the user-facing dashboard. Each section provides code-level insights into how the architectural designs from Chapter 3 were translated into a fully functional, production-grade system.
+
 ## 4.1 Development Environment Setup
 
 The implementation phase of RepoShield required orchestrating multiple local and cloud-based services simultaneously to replicate the complex event-driven architecture of the production environment. 

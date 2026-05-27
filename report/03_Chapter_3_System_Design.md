@@ -1,5 +1,7 @@
 # CHAPTER 3: SYSTEM DESIGN / METHODOLOGY
 
+This chapter provides a detailed exposition of the architectural design decisions and engineering methodologies employed in building the RepoShield platform. It covers the overall system architecture, the Feature-Module pattern used for code organization, the relational database schema, the data flow across all operational zones, and the complete technology stack selection rationale. Each design choice is justified with respect to scalability, maintainability, and production readiness.
+
 ## 3.1 Overall System Architecture
 
 RepoShield is engineered using a highly scalable, modern web architecture optimized for AI integration and asynchronous background processing. The application is built upon the **Next.js 15 App Router** framework, running on a Node.js environment. 
