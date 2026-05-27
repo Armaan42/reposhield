@@ -389,6 +389,9 @@ graph TD
 The system uses a Next.js frontend and backend to manage user interaction and API communication. GitHub webhooks trigger background jobs that process pull requests and retrieve repository context from a vector database. The retrieved context and code changes are analyzed using a generative AI model to produce structured code reviews, which are stored in the database and displayed in the dashboard.
 
 ### System Architecture
+
+> **Note:** The diagram below is a **high-level overview** of the system. Scroll down for the full detailed architecture with all zones, security layers, and microservice flows.
+
 ```mermaid
 flowchart TD
 
@@ -430,6 +433,152 @@ DB --> DASHBOARD[Analytics & Review Dashboard\nRecharts + TanStack Query]
 
 DASHBOARD --> F
 ```
+
+---
+
+### Detailed System Architecture
+
+> The following diagram provides a **full enterprise-grade breakdown** of RepoShield's microservices. It covers all 8 operational zones including edge security, event orchestration, the RAG indexing pipeline, AI inference, and billing — exactly as implemented in production.
+
+```mermaid
+flowchart TD
+
+%% ─── ZONE 1: USER & FRONTEND ───────────────────────────────────────────────
+subgraph FRONTEND_ZONE["Zone 1 · User Interface Layer"]
+    U[Developer / User]
+    F["Frontend\nNext.js 15 + React 19\n(Server & Client Components)"]
+    DASHBOARD["Analytics Dashboard\nRecharts + TanStack Query"]
+    BILLING_UI["Subscription Management\nPolar.sh Checkout UI"]
+end
+
+%% ─── ZONE 2: BACKEND API GATEWAY ────────────────────────────────────────────
+subgraph BACKEND_ZONE["Zone 2 · Backend API Gateway"]
+    B["Next.js API Routes\n& Server Actions"]
+    AUTH["Better Auth\nGitHub OAuth + Session Mgmt"]
+    RATE["API Rate Guard\nFreemium Tier Enforcement"]
+    SA["Server Actions\nlinkRepository · getReviews"]
+end
+
+%% ─── ZONE 3: PERSISTENCE LAYER ──────────────────────────────────────────────
+subgraph DB_ZONE["Zone 3 · Persistence & State Layer"]
+    DB[("Neon Serverless PostgreSQL\nPrisma ORM\nUsers · Repos · Reviews · Sessions")]
+    POLAR["Polar.sh Billing\nWebhook-driven Tier Upgrades"]
+end
+
+%% ─── ZONE 4: GITHUB INGRESS & SECURITY ──────────────────────────────────────
+subgraph GITHUB_ZONE["Zone 4 · GitHub Integration & Edge Security"]
+    GITHUB["GitHub Repository\n(Connected via OAuth App)"]
+    WEBHOOK["POST /api/webhooks/github\nWebhook Ingress Endpoint"]
+    HMAC{"HMAC SHA-256\nSignature Validation\nX-Hub-Signature-256"}
+    REJECT["HTTP 401 Unauthorized\nPayload Dropped"]
+end
+
+%% ─── ZONE 5: EVENT BUS & ORCHESTRATION ──────────────────────────────────────
+subgraph INNGEST_ZONE["Zone 5 · Inngest Event Bus & Orchestration"]
+    INNGEST["Inngest Event Queue\nDurable Background Execution"]
+    RETRY["Exponential Backoff\nMax 3 Retries on Failure"]
+    INDEX_JOB["Job: repo.index.requested\nFetch Full Repo File Tree"]
+    REVIEW_JOB["Job: pr.review.requested\nFetch PR Diff & Trigger RAG"]
+end
+
+%% ─── ZONE 6: RAG PIPELINE ───────────────────────────────────────────────────
+subgraph RAG_ZONE["Zone 6 · RAG Vector Indexing Pipeline"]
+    FETCH_TREE["GitHub Octokit\ngit.getTree (recursive=true)"]
+    CHUNK["File Chunker\nTruncate to 8000 chars\nPrepend file path metadata"]
+    EMBED["Gemini Embedding API\ngemini-embedding-001\n768-Dimension Vectors"]
+    RATE_LIMIT["Rate Limiter\n1s delay · Batch of 5 · 2s pause"]
+    VECTORDB[("Pinecone Vector DB\nServerless Index\nBatch Upsert · 100 vecs/req")]
+end
+
+%% ─── ZONE 7: AI INFERENCE ENGINE ────────────────────────────────────────────
+subgraph AI_ZONE["Zone 7 · Inference & Review Generation Engine"]
+    PRDIFF["Octokit pulls.get\nFetch Raw PR Diff Patch"]
+    RETRIEVE["Cosine Similarity Search\nPinecone Top-K=5 Retrieval"]
+    PROMPT["Prompt Assembler\nDiff + RAG Context +\nSystem Instructions"]
+    GEMINI["Google Gemini\ngemma-4-31b-it\nMarkdown Code Review Generator"]
+    FORMATTER["Output Formatter\nWalkthrough · Sequence Diagram\nStrengths · Issues · Vulnerability"]
+end
+
+%% ─── ZONE 8: EGRESS & OUTPUT ────────────────────────────────────────────────
+subgraph EGRESS_ZONE["Zone 8 · Egress & Feedback Output"]
+    POST_COMMENT["Octokit REST\nCreate PR Review Comment"]
+    SAVE_REVIEW["Persist Review\nPrisma DB · Status = COMPLETED"]
+    BADGE["Gamification Engine\nAward Dev Badges on Insights"]
+end
+
+%% ─── DATA FLOWS ─────────────────────────────────────────────────────────────
+
+U --> F
+F --> B
+F --> BILLING_UI
+B --> AUTH
+B --> RATE
+B --> SA
+SA --> DB
+
+BILLING_UI --> POLAR
+POLAR -->|"Webhook: subscription.created"| DB
+
+GITHUB --> WEBHOOK
+WEBHOOK --> HMAC
+HMAC -->|"Signature Valid"| INNGEST
+HMAC -->|"Signature Invalid"| REJECT
+
+INNGEST --> INDEX_JOB
+INNGEST --> REVIEW_JOB
+INNGEST --> RETRY
+RETRY -->|"Re-queue on 429/503"| INNGEST
+
+INDEX_JOB --> FETCH_TREE
+FETCH_TREE --> CHUNK
+CHUNK --> RATE_LIMIT
+RATE_LIMIT --> EMBED
+EMBED --> VECTORDB
+
+REVIEW_JOB --> PRDIFF
+REVIEW_JOB --> RETRIEVE
+RETRIEVE <-->|"Semantic Query"| VECTORDB
+PRDIFF --> PROMPT
+RETRIEVE --> PROMPT
+PROMPT --> GEMINI
+GEMINI --> FORMATTER
+
+FORMATTER --> POST_COMMENT
+FORMATTER --> SAVE_REVIEW
+POST_COMMENT --> GITHUB
+SAVE_REVIEW --> DB
+SAVE_REVIEW --> BADGE
+
+DB --> DASHBOARD
+BADGE --> DASHBOARD
+DASHBOARD --> F
+```
+
+<div align="center">
+  <img src="./assets/Reposhield_microservices_architecture.png" alt="RepoShield Detailed Microservices Architecture" width="900"/>
+  <br>
+  <b>Figure: RepoShield Full Microservices Architecture Diagram</b>
+</div>
+
+#### Architecture Walkthrough
+
+**Zone 1 — Ingress Zone (Far Left)**
+GitHub sends a Webhook Payload every time a developer opens a Pull Request. This hits the Edge Security Layer first, performing HMAC SHA-256 signature validation. If the signature is invalid, the request is rejected with HTTP 401. If valid, the payload proceeds.
+
+**Zone 2 — Orchestration Zone (Center)**
+The verified payload flows into the Inngest Event Bus, which distributes work across parallel Worker nodes with built-in Exponential Backoff and up to 3 Job Retries, ensuring no review is ever lost.
+
+**Zone 3 — State and Billing Zone (Bottom Center)**
+The Event Bus syncs with Prisma ORM on Neon Serverless PostgreSQL for data persistence, and checks Polar.sh to enforce Free or Pro tier quotas before processing begins.
+
+**Zone 4 — RAG Retrieval Engine (Center Right, Bottom)**
+A worker converts the PR description into a 768-dimension Search Vector, queries Pinecone via Cosine Similarity Search, and retrieves the Top-K most relevant repository files as context.
+
+**Zone 5 — Inference Zone (Center Right, Top)**
+Google Gemini Generative AI receives both the raw Code Diff and the Pinecone Context simultaneously. It generates the review, which is then passed through a Markdown Formatter producing structured sections: Walkthrough, Strengths, Issues, and Vulnerability Assessment.
+
+**Zone 6 — Egress Zone (Far Right)**
+The formatted review is posted via Octokit REST Client directly to the GitHub Pull Request timeline as an official bot comment, completing the automated loop.
 
 ---
 
