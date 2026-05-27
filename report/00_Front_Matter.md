@@ -72,14 +72,15 @@ Within seconds, the system generates and posts comprehensive markdown reviews di
 
 | Table No. | Caption | Page No. |
 | :--- | :--- | :--- |
-| 1.1 | Scope of the Project (Inclusions vs Exclusions) | 8 |
+| 1.1 | Project Schedule and Phases | 2 |
+| 1.2 | Scope of the Project (Inclusions vs Exclusions) | 8 |
 | 2.1 | Summary of Existing Code Review Methodologies | 14 |
 | 3.1 | Core Database Models and Relationships | 35 |
 | 4.1 | API Rate Limiting Configuration | 45 |
 | 4.2 | Core API Endpoints & Server Actions | 60 |
 | 5.1 | Experimental Test Cases and Expected Outcomes | 66 |
-| 5.2 | System Latency Benchmarks | 70 |
-| 5.3 | Comparison of Code Review Methodologies | 75 |
+| 5.2 | Comparison of Code Review Methodologies | 75 |
+| 5.3 | System Latency Benchmarks | 70 |
 
 ---
 
