@@ -7,7 +7,16 @@ import { updateUserTier, updatePolarCustomerId } from "@/module/payment/lib/subs
 
 export const auth = betterAuth({
     secret: process.env.BETTER_AUTH_SECRET,
-    baseURL: process.env.BETTER_AUTH_URL,
+    baseURL: process.env.VERCEL_URL 
+        ? {
+            allowedHosts: [
+                "*.vercel.app",
+                "*-armaansinghbhau8-gmailcoms-projects.vercel.app",
+                "reposhield-azure.vercel.app"
+            ],
+            protocol: "https"
+          }
+        : process.env.BETTER_AUTH_URL,
     trustHost: true,
     database: prismaAdapter(prisma, {
         provider: "postgresql",
