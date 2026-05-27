@@ -12,6 +12,8 @@ Because RepoShield relies heavily on GitHub Webhooks, local development required
 
 ## 4.2 Core Algorithm / Pipeline Implementation
 
+This section details the concrete, software-level execution of RepoShield’s core algorithmic workflows. It explains how vector embeddings are generated defensively to respect rate limit quotas, presents the source code implementing the Retrieval-Augmented Generation (RAG) framework, describes the semantic search mechanism using Pinecone, and outlines the precise prompt engineering strategies used to prompt the Gemini Large Language Model. Collectively, these pipelines translate high-level architectural designs into a reliable, highly available backend code intelligence engine.
+
 ### 4.2.1 Generating Vector Embeddings
 The foundational component of the RAG pipeline is the `indexCodebase` function, responsible for transforming raw code into searchable mathematical vectors. When a repository is successfully onboarded, the system fetches all relevant files using the Octokit REST API. 
 
