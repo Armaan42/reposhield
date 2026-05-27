@@ -150,6 +150,8 @@ The prompt is constructed via string interpolation, injecting the PR Title, PR D
 5.  **Suggestions**: Specific, actionable refactoring advice.
 6.  **Vulnerability Assessment**: A proactive scan evaluating susceptibility to common attack vectors (e.g., SQL Injection, XSS, CSRF).
 
+By structuring the prompt with these predefined categories, the platform minimizes the inherent variance of standard LLM responses, ensuring that the generated feedback is highly consistent, reliable, and immediately actionable for developers. Specifically, formatting instructions constrain the output model to restrict its audit strictly to the scope of the code diff and the retrieved RAG context. This mitigates the risk of the model critiquing unrelated files or generating irrelevant recommendations. Additionally, the explicit exclusion of special characters in Mermaid nodes ensures that the automatically compiled sequence diagrams render natively within GitHub's markdown parser without throwing runtime exceptions.
+
 **Figure 4.2: RAG Pipeline Data Flow**
 
 ```mermaid
