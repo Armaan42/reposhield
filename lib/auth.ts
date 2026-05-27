@@ -30,6 +30,9 @@ export const auth = betterAuth({
         "http://localhost:3000", 
         "https://20e5-122-161-243-96.ngrok-free.app",
         "https://reposhield-azure.vercel.app",
+        "https://*.vercel.app",
+        "https://*-armaansinghbhau8-gmailcoms-projects.vercel.app",
+        process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "",
         process.env.BETTER_AUTH_URL as string
     ].filter(Boolean),
     plugins: [
