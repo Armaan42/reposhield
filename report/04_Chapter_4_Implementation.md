@@ -264,7 +264,7 @@ The Developer Insights page (`app/dashboard/insights`) integrates the **Recharts
 
 ## 4.5 External API Integrations
 
-The system's modular architecture relies heavily on tight integration with external REST and GraphQL APIs. The implementation details for the two most critical third-party connections are outlined below:
+The system's modular architecture relies heavily on tight integration with external REST and GraphQL APIs. The implementation details for the two most critical third-party connections are outlined below: These external touchpoints allow RepoShield to orchestrate complex real-time code actions and monetize user registrations while remaining entirely stateless and lightweight. By employing strict validation layers and optimized request protocols, the system secures cross-boundary communications without introducing high network latency or API bottlenecks.
 
 ### 4.5.1 GitHub Octokit Data Ingestion
 To interact with the GitHub ecosystem beyond mere webhook listening, the project utilizes the official `@octokit/rest` SDK. When a repository is onboarded, the `indexRepo` background function requires the entire file tree. The implementation uses the `octokit.rest.git.getTree` endpoint, executing a recursive query (`recursive: "true"`) to retrieve all nested files in a single network call.
